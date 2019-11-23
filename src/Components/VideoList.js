@@ -1,23 +1,35 @@
 import React from 'react';
-import VideoTile from './VideoTile';
+import { Card, Icon, Image } from 'semantic-ui-react';
 
-const VideoList = (props) => {
-        
-
-        const mapVideos = props.videos.map((video, index) => {
-        const finalArray = []
-            console.log(video)
-            finalArray.push(<VideoTile name={video.snippet.title} key={index} id={video.id.videoId}/>)
-            return finalArray
-        }
-
-        )
-        console.log(mapVideos)
+const VideoList = props => {
+  return (
+    <Card.Group itemsPerRow={3} stackable>
+      {props.videos.map(video => {
+        const {
+          snippet: { channelTitle, title, thumbnails },
+        } = video;
         return (
-                <div style={{ marginTop: '55px' }}>{mapVideos}</div>
-        
-        )
-
-}
+          <Card>
+            <Image src={thumbnails.medium.url} fluid />
+            <Card.Content>
+              <Card.Header>{title}</Card.Header>
+              <Card.Meta>
+                <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
+                  {channelTitle}
+                </a>
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content extra>
+              <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
+                <Icon name="video" />
+                {title}
+              </a>
+            </Card.Content>
+          </Card>
+        );
+      })}
+    </Card.Group>
+  );
+};
 
 export default VideoList;

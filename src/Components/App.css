@@ -1,0 +1,7 @@
+* {
+  content: border-box;
+}
+
+.App__Body {
+  padding: 2.4rem;
+}
